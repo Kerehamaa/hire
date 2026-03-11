@@ -86,7 +86,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <h2>Packages</h2>
     </header>
     <div class="pricing-grid">
-      <div class="pricing-card">
+      <div class="pricing-card" data-package="starter">
         <span class="tier">Starter</span>
         <div class="price">$200 <span>NZD</span></div>
         <p>Perfect for getting online fast</p>
@@ -97,11 +97,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <li>Contact section</li>
           <li>1 round of revisions</li>
         </ul>
+        <a class="button primary card-cta" href="#contact">Get Started</a>
       </div>
-      <div class="pricing-card featured">
+      <div class="pricing-card featured" data-package="standard">
+        <span class="badge">Most Popular</span>
         <span class="tier">Standard</span>
         <div class="price">$350 <span>NZD</span></div>
-        <p>Most popular — great for small businesses</p>
+        <p>Great for small businesses</p>
         <ul>
           <li>Multi-page site (up to 5)</li>
           <li>Photo gallery</li>
@@ -110,8 +112,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <li>SEO basics</li>
           <li>2 rounds of revisions</li>
         </ul>
+        <a class="button primary card-cta" href="#contact">Get Started</a>
       </div>
-      <div class="pricing-card">
+      <div class="pricing-card" data-package="custom">
         <span class="tier">Custom</span>
         <div class="price">$500+ <span>NZD</span></div>
         <p>For bigger projects and unique needs</p>
@@ -123,6 +126,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <li>Priority support</li>
           <li>Unlimited revisions</li>
         </ul>
+        <a class="button primary card-cta" href="#contact">Get Started</a>
       </div>
     </div>
   </section>
@@ -150,5 +154,19 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       Or email me directly at <a href="mailto:kerehama@andrewstribe.co.nz" style="color: var(--accent);">kerehama@andrewstribe.co.nz</a>
     </p>
   </section>
+
+  <script>
+    document.querySelectorAll('.pricing-card .card-cta').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const pkg = btn.closest('.pricing-card')?.getAttribute('data-package');
+        const select = document.querySelector('select[name="package"]') as HTMLSelectElement;
+        if (select && pkg) {
+          select.value = pkg;
+        }
+        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  </script>
 
 </BaseLayout>
