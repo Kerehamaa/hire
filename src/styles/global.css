@@ -372,6 +372,13 @@ section header h2 {
 }
 
 .contact-form button:hover { opacity: 0.9; }
+.contact-form button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.form-status {
+  font-size: 0.95rem;
+  margin-top: 0.5rem;
+  min-height: 1.5rem;
+}
 
 /* Footer */
 footer {

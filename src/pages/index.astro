@@ -137,9 +137,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <p class="label">Get in touch</p>
       <h2>Let's build something</h2>
     </header>
-    <form class="contact-form" name="hire" method="POST" data-netlify="true" netlify-honeypot="bot-field">
-      <input type="hidden" name="form-name" value="hire" />
-      <p class="hidden" style="display:none;"><input name="bot-field" /></p>
+    <form class="contact-form" id="contact-form">
       <input type="text" name="name" placeholder="Your name" required />
       <input type="email" name="email" placeholder="Your email" required />
       <select name="package">
@@ -151,6 +149,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       </select>
       <textarea name="message" placeholder="Tell me about your project..." required></textarea>
       <button type="submit">Send Message</button>
+      <p class="form-status" id="form-status"></p>
     </form>
     <p style="margin-top: 1rem; color: var(--muted); font-size: 0.9rem;">
       Or email me directly at <a href="mailto:kerehama@andrewstribe.co.nz" style="color: var(--accent);">kerehama@andrewstribe.co.nz</a>
@@ -158,16 +157,51 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   </section>
 
   <script>
+    // Pricing card → scroll to form + pre-select
     document.querySelectorAll('.pricing-card .card-cta').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.preventDefault();
         const pkg = btn.closest('.pricing-card')?.getAttribute('data-package');
         const select = document.querySelector('select[name="package"]') as HTMLSelectElement;
-        if (select && pkg) {
-          select.value = pkg;
-        }
+        if (select && pkg) select.value = pkg;
         document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
       });
+    });
+
+    // Form submission → Netlify Function → Telegram
+    const form = document.getElementById('contact-form') as HTMLFormElement;
+    const status = document.getElementById('form-status')!;
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button') as HTMLButtonElement;
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      status.textContent = '';
+
+      const data = Object.fromEntries(new FormData(form));
+
+      try {
+        const res = await fetch('/.netlify/functions/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        if (res.ok) {
+          status.textContent = '✓ Message sent! I\'ll get back to you soon.';
+          status.style.color = '#06b6d4';
+          form.reset();
+        } else {
+          throw new Error('Failed');
+        }
+      } catch {
+        status.textContent = 'Something went wrong. Email me directly instead.';
+        status.style.color = '#ef4444';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Send Message';
+      }
     });
   </script>
 
