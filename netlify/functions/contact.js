@@ -25,19 +25,27 @@ export default async (req) => {
       `📦 Package: ${pkg || 'Not selected'}\n` +
       `💬 Message:\n${message}`;
 
+    // Send to group chat
     const tgRes = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: chatId,
-        text,
-        parse_mode: 'HTML',
-      }),
+      body: JSON.stringify({ chat_id: chatId, text, parse_mode: 'HTML' }),
     });
 
     if (!tgRes.ok) {
       console.error('Telegram error:', await tgRes.text());
       return new Response(JSON.stringify({ error: 'Failed to send notification' }), { status: 500 });
+    }
+
+    // Also notify Miles bot directly
+    const milesToken = process.env.MILES_BOT_TOKEN;
+    const milesChat = process.env.MILES_CHAT_ID;
+    if (milesToken && milesChat) {
+      await fetch(`https://api.telegram.org/bot${milesToken}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: milesChat, text: `[hire.kerehama.nz]\n\n${text}`, parse_mode: 'HTML' }),
+      }).catch(() => {});
     }
 
     return new Response(JSON.stringify({ ok: true }), {
