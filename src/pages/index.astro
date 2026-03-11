@@ -137,7 +137,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <p class="label">Get in touch</p>
       <h2>Let's build something</h2>
     </header>
-    <form class="contact-form" action="https://formspree.io/f/xpwzgqkl" method="POST">
+    <form class="contact-form" name="hire" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <input type="hidden" name="form-name" value="hire" />
+      <p class="hidden" style="display:none;"><input name="bot-field" /></p>
       <input type="text" name="name" placeholder="Your name" required />
       <input type="email" name="email" placeholder="Your email" required />
       <select name="package">
