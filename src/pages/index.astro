@@ -1,0 +1,154 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Web Design · Tauranga, NZ</p>
+      <h1>I build websites<br/>that <span class="accent">actually work</span></h1>
+      <p class="lede">Clean, fast, modern websites for small businesses, clubs, and organizations. No templates — everything built from scratch.</p>
+    </div>
+    <div class="cta-row">
+      <a class="button primary" href="#contact">Get a Quote</a>
+      <a class="button secondary" href="#work">See My Work</a>
+    </div>
+  </section>
+
+  <!-- Work / Portfolio -->
+  <section id="work">
+    <header>
+      <p class="label">Portfolio</p>
+      <h2>Recent work</h2>
+    </header>
+    <div class="portfolio-grid">
+      <a class="portfolio-card" href="https://temaruomauao.basketball" target="_blank" rel="noopener">
+        <img src="https://temaruomauao.basketball/images/tmom1.jpg" alt="Te Maru o Mauao website" />
+        <div class="info">
+          <h3>Te Maru o Mauao</h3>
+          <p>Basketball club website — Tauranga Moana Basketball Association</p>
+        </div>
+      </a>
+      <a class="portfolio-card" href="https://kerehama.nz" target="_blank" rel="noopener">
+        <img src="https://kerehama.nz/favicon.png" alt="kerehama.nz" style="background:#0D0E10; object-fit:contain; padding:2rem;" />
+        <div class="info">
+          <h3>kerehama.nz</h3>
+          <p>Personal homepage with interactive star map navigation</p>
+        </div>
+      </a>
+      <a class="portfolio-card" href="https://portfolio.kerehama.nz" target="_blank" rel="noopener">
+        <img src="https://portfolio.kerehama.nz/photos/MIS25-2.JPG" alt="Portfolio site" />
+        <div class="info">
+          <h3>portfolio.kerehama.nz</h3>
+          <p>Photography portfolio with interactive map and photo gallery</p>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- Process -->
+  <section id="process">
+    <header>
+      <p class="label">How it works</p>
+      <h2>Simple process</h2>
+    </header>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <h3>Tell me what you need</h3>
+          <p>Fill out the contact form or send me a message. Describe your business and what you want.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <h3>I design & build it</h3>
+          <p>I'll create a custom design and build your site from scratch. You'll see previews along the way.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <h3>Review & launch</h3>
+          <p>You review the site, request any changes, and we go live. Usually done within 1–2 weeks.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section id="pricing">
+    <header>
+      <p class="label">Pricing</p>
+      <h2>Packages</h2>
+    </header>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <span class="tier">Starter</span>
+        <div class="price">$200 <span>NZD</span></div>
+        <p>Perfect for getting online fast</p>
+        <ul>
+          <li>One-page website</li>
+          <li>Mobile responsive</li>
+          <li>Basic animations</li>
+          <li>Contact section</li>
+          <li>1 round of revisions</li>
+        </ul>
+      </div>
+      <div class="pricing-card featured">
+        <span class="tier">Standard</span>
+        <div class="price">$350 <span>NZD</span></div>
+        <p>Most popular — great for small businesses</p>
+        <ul>
+          <li>Multi-page site (up to 5)</li>
+          <li>Photo gallery</li>
+          <li>Contact form</li>
+          <li>Smooth animations</li>
+          <li>SEO basics</li>
+          <li>2 rounds of revisions</li>
+        </ul>
+      </div>
+      <div class="pricing-card">
+        <span class="tier">Custom</span>
+        <div class="price">$500+ <span>NZD</span></div>
+        <p>For bigger projects and unique needs</p>
+        <ul>
+          <li>Unlimited pages</li>
+          <li>Custom features</li>
+          <li>Interactive elements</li>
+          <li>Maps, dashboards, etc.</li>
+          <li>Priority support</li>
+          <li>Unlimited revisions</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <header>
+      <p class="label">Get in touch</p>
+      <h2>Let's build something</h2>
+    </header>
+    <form class="contact-form" action="https://formspree.io/f/xpwzgqkl" method="POST">
+      <input type="text" name="name" placeholder="Your name" required />
+      <input type="email" name="email" placeholder="Your email" required />
+      <select name="package">
+        <option value="" disabled selected>What are you looking for?</option>
+        <option value="starter">Starter — $200</option>
+        <option value="standard">Standard — $350</option>
+        <option value="custom">Custom — $500+</option>
+        <option value="unsure">Not sure yet</option>
+      </select>
+      <textarea name="message" placeholder="Tell me about your project..." required></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+    <p style="margin-top: 1rem; color: var(--muted); font-size: 0.9rem;">
+      Or email me directly at <a href="mailto:kerehama@andrewstribe.co.nz" style="color: var(--accent);">kerehama@andrewstribe.co.nz</a>
+    </p>
+  </section>
+
+</BaseLayout>
