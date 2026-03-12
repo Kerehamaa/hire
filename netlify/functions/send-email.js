@@ -7,7 +7,7 @@ export default async (req) => {
 
   // Simple auth check
   const authHeader = req.headers.get('authorization');
-  if (authHeader !== `Bearer ${process.env.SEND_SECRET}`) {
+  if (authHeader !== `Bearer ${process.env.EMAIL_SECRET}`) {
     return new Response(JSON.stringify({ error: 'Unauthorized' }), { status: 401 });
   }
 
